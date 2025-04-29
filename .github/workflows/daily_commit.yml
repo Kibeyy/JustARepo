@@ -1,0 +1,22 @@
+name: Keep GitHub Streak Alive
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Every day at midnight UTC
+  workflow_dispatch:
+
+jobs:
+  commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Update activity file
+        run: |
+          echo "✅ Keep streak alive - $(date)" >> activity.md
+          git config user.name "Kibeyy"
+          git config user.email "collinskibe6477@gmail.com"
+          git add activity.md
+          git commit -m "⚡️ Daily streak commit"
+          git push
